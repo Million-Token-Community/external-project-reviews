@@ -1,0 +1,57 @@
+
+Different versions of Solidity is used:
+	- Version used: ['0.8.0', '^0.8.0']
+	- ^0.8.0 (@openzeppelin/contracts/access/Ownable.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/token/ERC20/ERC20.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/token/ERC20/IERC20.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/utils/Context.sol#3)
+	- 0.8.0 (contracts/SimbaCoin.sol#2)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+
+Context._msgData() (@openzeppelin/contracts/utils/Context.sol#20-22) is never used and should be removed
+ERC20._burn(address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#274-289) is never used and should be removed
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dead-code
+
+Pragma version^0.8.0 (@openzeppelin/contracts/access/Ownable.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/token/ERC20/ERC20.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/token/ERC20/IERC20.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/Context.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version0.8.0 (contracts/SimbaCoin.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+solc-0.8.0 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+
+Parameter SimbaCoin.mint(address,uint256)._to (contracts/SimbaCoin.sol#15) is not in mixedCase
+Parameter SimbaCoin.mint(address,uint256)._amount (contracts/SimbaCoin.sol#15) is not in mixedCase
+Constant SimbaCoin.maxTotalSupply (contracts/SimbaCoin.sol#13) is not in UPPER_CASE_WITH_UNDERSCORES
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+
+renounceOwnership() should be declared external:
+	- Ownable.renounceOwnership() (@openzeppelin/contracts/access/Ownable.sol#53-55)
+transferOwnership(address) should be declared external:
+	- Ownable.transferOwnership(address) (@openzeppelin/contracts/access/Ownable.sol#61-64)
+name() should be declared external:
+	- ERC20.name() (@openzeppelin/contracts/token/ERC20/ERC20.sol#61-63)
+symbol() should be declared external:
+	- ERC20.symbol() (@openzeppelin/contracts/token/ERC20/ERC20.sol#69-71)
+decimals() should be declared external:
+	- ERC20.decimals() (@openzeppelin/contracts/token/ERC20/ERC20.sol#86-88)
+balanceOf(address) should be declared external:
+	- ERC20.balanceOf(address) (@openzeppelin/contracts/token/ERC20/ERC20.sol#100-102)
+transfer(address,uint256) should be declared external:
+	- ERC20.transfer(address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#112-115)
+allowance(address,address) should be declared external:
+	- ERC20.allowance(address,address) (@openzeppelin/contracts/token/ERC20/ERC20.sol#120-122)
+approve(address,uint256) should be declared external:
+	- ERC20.approve(address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#131-134)
+transferFrom(address,address,uint256) should be declared external:
+	- ERC20.transferFrom(address,address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#149-163)
+increaseAllowance(address,uint256) should be declared external:
+	- ERC20.increaseAllowance(address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#177-180)
+decreaseAllowance(address,uint256) should be declared external:
+	- ERC20.decreaseAllowance(address,uint256) (@openzeppelin/contracts/token/ERC20/ERC20.sol#196-204)
+mint(address,uint256) should be declared external:
+	- SimbaCoin.mint(address,uint256) (contracts/SimbaCoin.sol#15-18)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external
+contracts/SimbaCoin.sol analyzed (6 contracts with 75 detectors), 26 result(s) found

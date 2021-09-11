@@ -1,0 +1,97 @@
+
+SimbaDrop.claimAirDrop() (contracts/SimbaDrop.sol#33-40) ignores return value by simba.transfer(msg.sender,amount) (contracts/SimbaDrop.sol#36)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unchecked-transfer
+
+Reentrancy in SimbaDrop.claimAirDrop() (contracts/SimbaDrop.sol#33-40):
+	External calls:
+	- simba.transfer(msg.sender,amount) (contracts/SimbaDrop.sol#36)
+	State variables written after the call(s):
+	- claimed[msg.sender] = 0 (contracts/SimbaDrop.sol#37)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-1
+
+SimbaDrop.setAirDrop(address[]) (contracts/SimbaDrop.sol#24-31) should emit an event for:
+	- count = _address.length (contracts/SimbaDrop.sol#25)
+	- amount = simba.balanceOf(address(this)).div(count) (contracts/SimbaDrop.sol#26)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-events-arithmetic
+
+SimbaDrop.claimAirDrop() (contracts/SimbaDrop.sol#33-40) has external calls inside a loop: simba.transfer(msg.sender,amount) (contracts/SimbaDrop.sol#36)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation/#calls-inside-a-loop
+
+Address.isContract(address) (@openzeppelin/contracts/utils/Address.sol#26-36) uses assembly
+	- INLINE ASM (@openzeppelin/contracts/utils/Address.sol#32-34)
+Address.verifyCallResult(bool,bytes,string) (@openzeppelin/contracts/utils/Address.sol#195-215) uses assembly
+	- INLINE ASM (@openzeppelin/contracts/utils/Address.sol#207-210)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+
+Different versions of Solidity is used:
+	- Version used: ['0.8.0', '^0.8.0']
+	- ^0.8.0 (@openzeppelin/contracts/access/Ownable.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/token/ERC20/IERC20.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/utils/Address.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/utils/Context.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/utils/math/SafeMath.sol#3)
+	- 0.8.0 (contracts/SimbaDrop.sol#2)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+
+Address.functionCall(address,bytes) (@openzeppelin/contracts/utils/Address.sol#79-81) is never used and should be removed
+Address.functionCall(address,bytes,string) (@openzeppelin/contracts/utils/Address.sol#89-95) is never used and should be removed
+Address.functionCallWithValue(address,bytes,uint256) (@openzeppelin/contracts/utils/Address.sol#108-114) is never used and should be removed
+Address.functionCallWithValue(address,bytes,uint256,string) (@openzeppelin/contracts/utils/Address.sol#122-133) is never used and should be removed
+Address.functionDelegateCall(address,bytes) (@openzeppelin/contracts/utils/Address.sol#168-170) is never used and should be removed
+Address.functionDelegateCall(address,bytes,string) (@openzeppelin/contracts/utils/Address.sol#178-187) is never used and should be removed
+Address.functionStaticCall(address,bytes) (@openzeppelin/contracts/utils/Address.sol#141-143) is never used and should be removed
+Address.functionStaticCall(address,bytes,string) (@openzeppelin/contracts/utils/Address.sol#151-160) is never used and should be removed
+Address.isContract(address) (@openzeppelin/contracts/utils/Address.sol#26-36) is never used and should be removed
+Address.sendValue(address,uint256) (@openzeppelin/contracts/utils/Address.sol#54-59) is never used and should be removed
+Address.verifyCallResult(bool,bytes,string) (@openzeppelin/contracts/utils/Address.sol#195-215) is never used and should be removed
+Context._msgData() (@openzeppelin/contracts/utils/Context.sol#20-22) is never used and should be removed
+SafeERC20._callOptionalReturn(IERC20,bytes) (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#87-97) is never used and should be removed
+SafeERC20.safeApprove(IERC20,address,uint256) (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#44-57) is never used and should be removed
+SafeERC20.safeDecreaseAllowance(IERC20,address,uint256) (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#68-79) is never used and should be removed
+SafeERC20.safeIncreaseAllowance(IERC20,address,uint256) (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#59-66) is never used and should be removed
+SafeERC20.safeTransfer(IERC20,address,uint256) (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#20-26) is never used and should be removed
+SafeERC20.safeTransferFrom(IERC20,address,address,uint256) (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#28-35) is never used and should be removed
+SafeMath.add(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#92-94) is never used and should be removed
+SafeMath.div(uint256,uint256,string) (@openzeppelin/contracts/utils/math/SafeMath.sol#190-199) is never used and should be removed
+SafeMath.mod(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#150-152) is never used and should be removed
+SafeMath.mod(uint256,uint256,string) (@openzeppelin/contracts/utils/math/SafeMath.sol#216-225) is never used and should be removed
+SafeMath.mul(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#120-122) is never used and should be removed
+SafeMath.sub(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#106-108) is never used and should be removed
+SafeMath.sub(uint256,uint256,string) (@openzeppelin/contracts/utils/math/SafeMath.sol#167-176) is never used and should be removed
+SafeMath.tryAdd(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#21-27) is never used and should be removed
+SafeMath.tryDiv(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#63-68) is never used and should be removed
+SafeMath.tryMod(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#75-80) is never used and should be removed
+SafeMath.tryMul(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#46-56) is never used and should be removed
+SafeMath.trySub(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#34-39) is never used and should be removed
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dead-code
+
+Pragma version^0.8.0 (@openzeppelin/contracts/access/Ownable.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/token/ERC20/IERC20.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/Address.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/Context.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/math/SafeMath.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version0.8.0 (contracts/SimbaDrop.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+solc-0.8.0 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+
+Low level call in Address.sendValue(address,uint256) (@openzeppelin/contracts/utils/Address.sol#54-59):
+	- (success) = recipient.call{value: amount}() (@openzeppelin/contracts/utils/Address.sol#57)
+Low level call in Address.functionCallWithValue(address,bytes,uint256,string) (@openzeppelin/contracts/utils/Address.sol#122-133):
+	- (success,returndata) = target.call{value: value}(data) (@openzeppelin/contracts/utils/Address.sol#131)
+Low level call in Address.functionStaticCall(address,bytes,string) (@openzeppelin/contracts/utils/Address.sol#151-160):
+	- (success,returndata) = target.staticcall(data) (@openzeppelin/contracts/utils/Address.sol#158)
+Low level call in Address.functionDelegateCall(address,bytes,string) (@openzeppelin/contracts/utils/Address.sol#178-187):
+	- (success,returndata) = target.delegatecall(data) (@openzeppelin/contracts/utils/Address.sol#185)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+
+Parameter SimbaDrop.setAirDrop(address[])._address (contracts/SimbaDrop.sol#24) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+
+renounceOwnership() should be declared external:
+	- Ownable.renounceOwnership() (@openzeppelin/contracts/access/Ownable.sol#53-55)
+transferOwnership(address) should be declared external:
+	- Ownable.transferOwnership(address) (@openzeppelin/contracts/access/Ownable.sol#61-64)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external
+contracts/SimbaDrop.sol analyzed (7 contracts with 75 detectors), 52 result(s) found
