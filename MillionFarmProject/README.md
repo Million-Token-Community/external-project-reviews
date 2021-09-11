@@ -8,11 +8,15 @@ To learn more about the Slither tool please visit the projects GitHub repository
 * https://github.com/crytic/slither
 
 ## Reports
+An analysis of what was resolved after changes were made, and what issues are still present, exist as
+CONTRACT_NAME-Analysis.md.
+
 The initial Slither output for each contract is saved as CONTRACT_NAME-slither-output.txt. The output of
 CONTRACT_NAME-slither-post-code-changes.txt is the result of running the tool after the Million Farm team made changes
 to address the reentrancy and unchecked transfer issues. Only one contract had changes; the Million Farm contract.
 
-To run these reports yourself, please see the Slither tool for a guide.
+To run these reports yourself, please see the Slither tool for a guide and ask the Million Farm team for the source;
+it's licensed under the open source MIT license.
 
 ## Disclaimer
 As always, do your own research; this is not financial advice or a recommendation of any kind.
