@@ -1,0 +1,126 @@
+Compilation warnings/errors on contracts/MillionFarm.sol:
+Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it "abstract" is sufficient.
+  --> contracts/MillionFarm.sol:43:5:
+   |
+43 |     constructor(
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+
+MillionFarm.add(uint256,IERC20,uint16,bool) (contracts/MillionFarm.sol#55-70) should emit an event for: 
+	- totalAllocPoint = totalAllocPoint.add(_allocPoint) (contracts/MillionFarm.sol#61) 
+MillionFarm.set(uint256,uint256,uint16,bool) (contracts/MillionFarm.sol#72-80) should emit an event for: 
+	- totalAllocPoint = totalAllocPoint.sub(poolInfo[_pid].allocPoint).add(_allocPoint) (contracts/MillionFarm.sol#77) 
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-events-arithmetic
+
+MillionFarm.constructor(IERC20,address,uint256,uint256)._simbaTreasury (contracts/MillionFarm.sol#45) lacks a zero-check on :
+		- simbaTreasury = _simbaTreasury (contracts/MillionFarm.sol#49)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation
+
+MillionFarm.add(uint256,IERC20,uint16,bool) (contracts/MillionFarm.sol#55-70) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp > startTime (contracts/MillionFarm.sol#60)
+MillionFarm.updateRewardPerSecond() (contracts/MillionFarm.sol#141-148) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(block.timestamp > emissionCheckpoint,you cannot halve emissions yet) (contracts/MillionFarm.sol#142)
+MillionFarm.simbaRewards(uint256,address) (contracts/MillionFarm.sol#150-161) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp > pool.lastTimeStamp && stakeSupply != 0 (contracts/MillionFarm.sol#155)
+MillionFarm.massUpdatePools() (contracts/MillionFarm.sol#162-167) uses timestamp for comparisons
+	Dangerous comparisons:
+	- pid < length (contracts/MillionFarm.sol#164)
+MillionFarm.updatePool(uint256) (contracts/MillionFarm.sol#169-184) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp <= pool.lastTimeStamp (contracts/MillionFarm.sol#171)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+
+Address.isContract(address) (@openzeppelin/contracts/utils/Address.sol#26-36) uses assembly
+	- INLINE ASM (@openzeppelin/contracts/utils/Address.sol#32-34)
+Address.verifyCallResult(bool,bytes,string) (@openzeppelin/contracts/utils/Address.sol#195-215) uses assembly
+	- INLINE ASM (@openzeppelin/contracts/utils/Address.sol#207-210)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+
+Different versions of Solidity is used:
+	- Version used: ['0.8.0', '^0.8.0']
+	- ^0.8.0 (@openzeppelin/contracts/access/Ownable.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/token/ERC20/IERC20.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/utils/Address.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/utils/Context.sol#3)
+	- ^0.8.0 (@openzeppelin/contracts/utils/math/SafeMath.sol#3)
+	- 0.8.0 (contracts/MillionFarm.sol#2)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+
+Address.functionCall(address,bytes) (@openzeppelin/contracts/utils/Address.sol#79-81) is never used and should be removed
+Address.functionCallWithValue(address,bytes,uint256) (@openzeppelin/contracts/utils/Address.sol#108-114) is never used and should be removed
+Address.functionDelegateCall(address,bytes) (@openzeppelin/contracts/utils/Address.sol#168-170) is never used and should be removed
+Address.functionDelegateCall(address,bytes,string) (@openzeppelin/contracts/utils/Address.sol#178-187) is never used and should be removed
+Address.functionStaticCall(address,bytes) (@openzeppelin/contracts/utils/Address.sol#141-143) is never used and should be removed
+Address.functionStaticCall(address,bytes,string) (@openzeppelin/contracts/utils/Address.sol#151-160) is never used and should be removed
+Address.sendValue(address,uint256) (@openzeppelin/contracts/utils/Address.sol#54-59) is never used and should be removed
+Context._msgData() (@openzeppelin/contracts/utils/Context.sol#20-22) is never used and should be removed
+SafeERC20.safeApprove(IERC20,address,uint256) (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#44-57) is never used and should be removed
+SafeERC20.safeDecreaseAllowance(IERC20,address,uint256) (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#68-79) is never used and should be removed
+SafeERC20.safeIncreaseAllowance(IERC20,address,uint256) (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#59-66) is never used and should be removed
+SafeMath.div(uint256,uint256,string) (@openzeppelin/contracts/utils/math/SafeMath.sol#190-199) is never used and should be removed
+SafeMath.mod(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#150-152) is never used and should be removed
+SafeMath.mod(uint256,uint256,string) (@openzeppelin/contracts/utils/math/SafeMath.sol#216-225) is never used and should be removed
+SafeMath.sub(uint256,uint256,string) (@openzeppelin/contracts/utils/math/SafeMath.sol#167-176) is never used and should be removed
+SafeMath.tryAdd(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#21-27) is never used and should be removed
+SafeMath.tryDiv(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#63-68) is never used and should be removed
+SafeMath.tryMod(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#75-80) is never used and should be removed
+SafeMath.tryMul(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#46-56) is never used and should be removed
+SafeMath.trySub(uint256,uint256) (@openzeppelin/contracts/utils/math/SafeMath.sol#34-39) is never used and should be removed
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dead-code
+
+Pragma version^0.8.0 (@openzeppelin/contracts/access/Ownable.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/token/ERC20/IERC20.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/Address.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/Context.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/math/SafeMath.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version0.8.0 (contracts/MillionFarm.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+solc-0.8.0 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+
+Low level call in Address.sendValue(address,uint256) (@openzeppelin/contracts/utils/Address.sol#54-59):
+	- (success) = recipient.call{value: amount}() (@openzeppelin/contracts/utils/Address.sol#57)
+Low level call in Address.functionCallWithValue(address,bytes,uint256,string) (@openzeppelin/contracts/utils/Address.sol#122-133):
+	- (success,returndata) = target.call{value: value}(data) (@openzeppelin/contracts/utils/Address.sol#131)
+Low level call in Address.functionStaticCall(address,bytes,string) (@openzeppelin/contracts/utils/Address.sol#151-160):
+	- (success,returndata) = target.staticcall(data) (@openzeppelin/contracts/utils/Address.sol#158)
+Low level call in Address.functionDelegateCall(address,bytes,string) (@openzeppelin/contracts/utils/Address.sol#178-187):
+	- (success,returndata) = target.delegatecall(data) (@openzeppelin/contracts/utils/Address.sol#185)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+
+Parameter MillionFarm.add(uint256,IERC20,uint16,bool)._allocPoint (contracts/MillionFarm.sol#55) is not in mixedCase
+Parameter MillionFarm.add(uint256,IERC20,uint16,bool)._stake (contracts/MillionFarm.sol#55) is not in mixedCase
+Parameter MillionFarm.add(uint256,IERC20,uint16,bool)._depositFeeBP (contracts/MillionFarm.sol#55) is not in mixedCase
+Parameter MillionFarm.add(uint256,IERC20,uint16,bool)._withUpdate (contracts/MillionFarm.sol#55) is not in mixedCase
+Parameter MillionFarm.set(uint256,uint256,uint16,bool)._pid (contracts/MillionFarm.sol#72) is not in mixedCase
+Parameter MillionFarm.set(uint256,uint256,uint16,bool)._allocPoint (contracts/MillionFarm.sol#72) is not in mixedCase
+Parameter MillionFarm.set(uint256,uint256,uint16,bool)._depositFeeBP (contracts/MillionFarm.sol#72) is not in mixedCase
+Parameter MillionFarm.set(uint256,uint256,uint16,bool)._withUpdate (contracts/MillionFarm.sol#72) is not in mixedCase
+Parameter MillionFarm.deposit(uint256,uint256)._pid (contracts/MillionFarm.sol#81) is not in mixedCase
+Parameter MillionFarm.deposit(uint256,uint256)._amount (contracts/MillionFarm.sol#81) is not in mixedCase
+Parameter MillionFarm.withdraw(uint256,uint256)._pid (contracts/MillionFarm.sol#107) is not in mixedCase
+Parameter MillionFarm.withdraw(uint256,uint256)._amount (contracts/MillionFarm.sol#107) is not in mixedCase
+Parameter MillionFarm.emergencyWithdraw(uint256)._pid (contracts/MillionFarm.sol#131) is not in mixedCase
+Parameter MillionFarm.simbaRewards(uint256,address)._pid (contracts/MillionFarm.sol#150) is not in mixedCase
+Parameter MillionFarm.simbaRewards(uint256,address)._user (contracts/MillionFarm.sol#150) is not in mixedCase
+Parameter MillionFarm.updatePool(uint256)._pid (contracts/MillionFarm.sol#169) is not in mixedCase
+Parameter MillionFarm.safeSimbaTransfer(address,uint256)._to (contracts/MillionFarm.sol#185) is not in mixedCase
+Parameter MillionFarm.safeSimbaTransfer(address,uint256)._amount (contracts/MillionFarm.sol#185) is not in mixedCase
+Parameter MillionFarm.getMultiplier(uint256,uint256)._from (contracts/MillionFarm.sol#194) is not in mixedCase
+Parameter MillionFarm.getMultiplier(uint256,uint256)._to (contracts/MillionFarm.sol#194) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+
+MillionFarm.halvingTime (contracts/MillionFarm.sol#36) should be constant
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-constant
+
+renounceOwnership() should be declared external:
+	- Ownable.renounceOwnership() (@openzeppelin/contracts/access/Ownable.sol#53-55)
+transferOwnership(address) should be declared external:
+	- Ownable.transferOwnership(address) (@openzeppelin/contracts/access/Ownable.sol#61-64)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external
+contracts/MillionFarm.sol analyzed (7 contracts with 75 detectors), 66 result(s) found
